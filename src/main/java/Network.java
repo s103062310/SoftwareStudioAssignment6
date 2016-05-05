@@ -24,13 +24,13 @@ public class Network {
 	public void display(){
 		this.parent.noFill();
 		this.parent.strokeWeight(3);
-		this.parent.stroke(65, 180, 0, 200);
-		parent.arc(600, 350, 500, 500, 0, this.parent.TWO_PI);
+		this.parent.stroke(145, 200, 65, 200);
+		parent.arc(600, 370, 500, 500, 0, this.parent.TWO_PI);
 	}
 	
 	public void addMember(Character c){
 		members.add(c);
-		Collections.sort(members);
+		//Collections.sort(members);
 		for(Character ch : members){
 			
 		}
