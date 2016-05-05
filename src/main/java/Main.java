@@ -1,6 +1,7 @@
 package main.java;
+
 import javax.swing.JFrame;
-// Hellow
+
 /**
 * This class is the main class of the program.
 * You can customize different window width and height for your program here. 
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 * @version 1.0
 * @since   2016-04-26 
 */
+
 @SuppressWarnings("serial")
 public class Main extends JFrame{
 	

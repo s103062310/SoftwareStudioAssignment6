@@ -8,21 +8,23 @@ import processing.core.PApplet;
 */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
+	
 	private String path = "main/resources/";
 	private String file = "starwars-episode-1-interactions.json";
+	private Network circle;
 	
 	private final static int width = 1200, height = 650;
 	
 	public void setup() {
-
 		size(width, height);
-		smooth();
+		circle = new Network(this);
 		loadData();
-		
+		smooth();
 	}
 
 	public void draw() {
-
+		background(255);
+		circle.display();
 	}
 
 	private void loadData(){

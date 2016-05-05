@@ -20,8 +20,4 @@ public class Character {
 
 	}
 	
-	public void cindytest(){
-		//~~~~~ <3
-	}
-	
 }
