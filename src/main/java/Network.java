@@ -35,6 +35,10 @@ public class Network {
 			this.parent.strokeWeight(3);
 		this.parent.stroke(145, 200, 65, 200);
 		this.parent.arc(this.x, this.y, this.r * 2, this.r * 2, 0, PApplet.TWO_PI);
+		
+		for (Character ch : this.members) {
+			ch.showAllLink();
+		}
 	}
 
 	public void addMember(Character c) {
