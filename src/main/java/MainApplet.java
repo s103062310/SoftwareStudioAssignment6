@@ -35,6 +35,22 @@ public class MainApplet extends PApplet{
 		loadData();
 		smooth();
 	}
+	
+	public void draw() {
+		background(255);
+		
+		fill(0);
+		textSize(50);
+		text("Star Wars 1", 460, 70);
+		
+		circle.display();
+		clean.display();
+		addAll.display();
+		
+		for (Character character : characters)
+			character.display();
+	}
+	
 	public void keyPressed(){
 		if(keyCode==97){
 			file = "starwars-episode-1-interactions.json";	
@@ -59,20 +75,34 @@ public class MainApplet extends PApplet{
 		}
 		setup();
 	}
-	public void draw() {
-		background(255);
-		update();
-		
-		fill(0);
-		textSize(50);
-		text("Star Wars 1", 460, 70);
-		
-		circle.display();
-		clean.display();
-		addAll.display();
-		
-		for (Character character : characters)
-			character.display();
+	
+	public void mouseClicked(){
+		if(clean.inBtn(mouseX, mouseY)) circle.clean();
+		if(addAll.inBtn(mouseX, mouseY)) circle.addAll(this.characters);
+	}
+	
+	public void mousePressed(){
+		if(clean.inBtn(mouseX, mouseY)) clean.setClick(true);
+		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(true);
+	}
+	
+	public void mouseReleased(){
+		if(clean.inBtn(mouseX, mouseY)) clean.setClick(false);
+		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(false);
+		if(circle.inCircle(mouseX, mouseY)) circle.addMember(characters.get(0));
+		circle.setBold(false);
+	}
+	
+	public void mouseMoved(){
+		if(clean.inBtn(mouseX, mouseY)) clean.setOver(true);
+		else clean.setOver(false);
+		if(addAll.inBtn(mouseX, mouseY)) addAll.setOver(true);
+		else addAll.setOver(false);
+	}
+	
+	public void mouseDragged(){
+		if(circle.inCircle(mouseX, mouseY)) circle.setBold(true);
+		else circle.setBold(false);
 	}
 
 	private void loadData(){
@@ -91,10 +121,6 @@ public class MainApplet extends PApplet{
 			characters.get(source).addTarget(characters.get(target));
 			characters.get(source).setLinkWeight(l.getInt("value"));
 		}
-	}
-	
-	private void update(){
-		
 	}
 
 }

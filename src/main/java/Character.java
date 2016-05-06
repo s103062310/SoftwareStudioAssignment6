@@ -7,7 +7,7 @@ import processing.core.PApplet;
  * This class is used to store states of the characters in the program. You will
  * need to declare other variables depending on your implementation.
  */
-public class Character {
+public class Character implements Comparable<Character> {
 
 	private float x, y;
 	private String name, colour;
@@ -29,11 +29,16 @@ public class Character {
 	public void setLinkWeight(int value) {
 		this.value = value;
 	}
+	
+	public void setPosition(float x, float y){
+		this.x = x;
+		this.y = y;
+	}
 
 	public void display() {
 
-		int hi = this.parent.unhex(colour.substring(1, 9));
-		this.parent.fill(hi);
+		int hi = PApplet.unhex(colour.substring(1, 9));
+		this.parent.fill(hi, 200);
 		this.parent.ellipse(x, y, 50, 50);
 		/*
 		this.parent.fill(153, 153, 255);
@@ -56,5 +61,11 @@ public class Character {
 
 	public ArrayList<Character> getTargets() {
 		return this.targets;
+	}
+	
+	public int compareTo(Character c){
+		if(this.id>c.id) return 1;
+		else if(this.id==c.id) return 0;
+		else return -1;
 	}
 }
