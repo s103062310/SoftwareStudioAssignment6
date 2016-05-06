@@ -35,7 +35,30 @@ public class MainApplet extends PApplet{
 		loadData();
 		smooth();
 	}
-
+	public void keyPressed(){
+		if(keyCode==97){
+			file = "starwars-episode-1-interactions.json";	
+		}
+		else if(keyCode==98){
+			file = "starwars-episode-2-interactions.json";	
+		}
+		else if(keyCode==99){
+			file = "starwars-episode-3-interactions.json";	
+		}
+		else if(keyCode==100){
+			file = "starwars-episode-4-interactions.json";	
+		}
+		else if(keyCode==101){
+			file = "starwars-episode-5-interactions.json";	
+		}
+		else if(keyCode==102){
+			file = "starwars-episode-6-interactions.json";	
+		}
+		else if(keyCode==103){
+			file = "starwars-episode-7-interactions.json";	
+		}
+		setup();
+	}
 	public void draw() {
 		background(255);
 		update();
@@ -57,8 +80,7 @@ public class MainApplet extends PApplet{
 		nodes = data.getJSONArray("nodes");
 		for (int i = 0; i < nodes.size(); i++) {
 			JSONObject n = nodes.getJSONObject(i);
-			Character ch = new Character(this, n.getString("name"), n.getString("colour"), rand.nextInt(800),
-					rand.nextInt(800), i);
+			Character ch = new Character(this, n.getString("name"), n.getString("colour"), i);
 			characters.add(ch);
 		}
 		links = data.getJSONArray("links");
