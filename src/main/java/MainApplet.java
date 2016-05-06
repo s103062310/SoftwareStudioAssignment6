@@ -22,6 +22,7 @@ public class MainApplet extends PApplet{
 	private ArrayList<Character> characters;
 	private Network circle;
 	private Button clean, addAll;
+	private int keycode=1;
 	Random rand = new Random();
 	
 	private final static int width = 1200, height = 650;
@@ -41,7 +42,7 @@ public class MainApplet extends PApplet{
 		
 		fill(0);
 		textSize(50);
-		text("Star Wars 1", 460, 70);
+		text("Star Wars "+this.keycode, 460, 70);
 		
 		circle.display();
 		clean.display();
@@ -53,7 +54,7 @@ public class MainApplet extends PApplet{
 	
 	public void keyPressed(){
 		if(keyCode==97){
-			file = "starwars-episode-1-interactions.json";	
+			file = "starwars-episode-1-interactions.json";
 		}
 		else if(keyCode==98){
 			file = "starwars-episode-2-interactions.json";	
@@ -72,6 +73,10 @@ public class MainApplet extends PApplet{
 		}
 		else if(keyCode==103){
 			file = "starwars-episode-7-interactions.json";	
+		}
+		System.out.println(keyCode-96);
+		if(keyCode>=97 && keyCode<=103){
+			this.keycode=keyCode-96;
 		}
 		setup();
 	}
