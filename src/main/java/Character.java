@@ -112,11 +112,12 @@ public class Character{
 	}
 	
 	public void showLink(Character character, float x, float y,int val){			
-			float midx = (character.x+this.x) / 2;
-			float midy = (character.y+this.y) / 2;
+		
+			float midx = (character.getX()+this.nx) / 2;
+			float midy = (character.getY()+this.ny) / 2;
 			
-			float x1 = 600 + (midx-x)*3;
-			float y1 = 370 + (midy-y)*3;
+			float x1 = 600 + (midx-600)*3;
+			float y1 = 370 + (midy-370)*3;
 			
 			this.parent.strokeWeight(val);
 			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
