@@ -48,8 +48,13 @@ public class MainApplet extends PApplet{
 		clean.display();
 		addAll.display();
 		
-		for (Character character : characters)
+		for (Character character : characters){
 			character.display();
+		}
+		
+		for (Character character : characters){
+			if(character.isOver()) character.showName();
+		}
 	}
 	
 	public void keyPressed(){

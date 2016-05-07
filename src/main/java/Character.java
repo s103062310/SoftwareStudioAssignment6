@@ -32,14 +32,11 @@ public class Character{
 	}
 	
 	public void display() {
-
 		int hi = PApplet.unhex(this.colour.substring(1, 9));
 		this.parent.fill(hi, 200);
 		if(this.over) this.r = 25;
 		else this.r = 20;
 		this.parent.ellipse(this.nx, this.ny, this.r*2, this.r*2);
-		
-		if(this.over) this.showName();
 	}
 	
 	public void setLinkWeight(int value) {
@@ -64,6 +61,10 @@ public class Character{
 	
 	public void setOver(boolean b){
 		this.over = b;
+	}
+	
+	public boolean isOver(){
+		return this.over;
 	}
 	
 	public void setPosition(float x, float y) {
@@ -121,11 +122,11 @@ public class Character{
 	}
 	
 	public void showName(){
-		this.parent.fill(153, 153, 255);
-		this.parent.rect(this.nx+10, this.ny-25, this.name.length()*10, 25, 12, 12, 12, 12);
+		this.parent.fill(180, 210, 180);
+		this.parent.rect(this.nx, this.ny-20, this.name.length()*25, 40, 15, 15, 15, 15);
 
-		this.parent.fill(173, 254, 220);
-		this.parent.textSize(12);
-		this.parent.text(this.name, this.nx+18, this.ny-8);
+		this.parent.fill(255);
+		this.parent.textSize(24);
+		this.parent.text(this.name, this.nx+20, this.ny+10);
 	}
 }
