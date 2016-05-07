@@ -8,14 +8,14 @@ import processing.core.PApplet;
  * need to declare other variables depending on your implementation.
  */
 
-public class Character implements Comparable<Character> {
+public class Character{
 
-	private float x, y, r;
+	private float x, y, r, nx, ny;
 	private int value, id;
 	private String name, colour;
 	private MainApplet parent;
 	public ArrayList<Character> targets;
-	private boolean drag;
+	private boolean isdrag, inCircle;
 
 	public Character(MainApplet parent, String name, String colour, int id) {
 		this.parent = parent;
@@ -25,15 +25,18 @@ public class Character implements Comparable<Character> {
 		this.r = 25;
 		this.x = 50 + (id / 10) * 60;
 		this.y = 50 + (id % 10) * 60;
-		this.drag = false;
+		this.nx = 50 + (id / 10) * 60;
+		this.ny = 50 + (id % 10) * 60;
+		this.isdrag = false;
+		this.inCircle = false;
 		this.targets = new ArrayList<Character>();
 	}
 	
 	public void display() {
 
-		int hi = PApplet.unhex(colour.substring(1, 9));
+		int hi = PApplet.unhex(this.colour.substring(1, 9));
 		this.parent.fill(hi, 200);
-		this.parent.ellipse(x, y, r*2, r*2);
+		this.parent.ellipse(this.nx, this.ny, this.r*2, this.r*2);
 		/*
 		this.parent.fill(153, 153, 255);
 		this.parent.rect(x + 10, y - 25, name.length() * 10, 25, 12, 12, 12, 12);
@@ -52,22 +55,42 @@ public class Character implements Comparable<Character> {
 		this.value = value;
 	}
 	
+	public void setIncircle(boolean b){
+		this.inCircle = b;
+	}
+	
+	public boolean inCircle(){
+		return this.inCircle;
+	}
+	
 	public void setDrag(boolean b){
-		this.drag = b;
+		this.isdrag = b;
 	}
 	
 	public boolean isDrag(){
-		return this.drag;
+		return this.isdrag;
 	}
 	
 	public void setPosition(float x, float y) {
+		this.nx = x;
+		this.ny = y;
+	}
+	
+	public void setCirclePosition(float x, float y){
 		this.x = x;
 		this.y = y;
+		this.setPosition(this.x, this.y);
+	}
+	
+	public void returnToSite(){
+		this.nx = this.x;
+		this.ny = this.y;
 	}
 	
 	public void reset(){
 		this.x = 50 + (this.id / 10) * 60;
 		this.y = 50 + (this.id % 10) * 60;
+		this.setPosition(this.x, this.y);
 	}
 
 	public void addTarget(Character target) {
@@ -76,12 +99,6 @@ public class Character implements Comparable<Character> {
 
 	public ArrayList<Character> getTargets() {
 		return this.targets;
-	}
-
-	public int compareTo(Character c) {
-		if (this.id > c.id) return 1;
-		else if (this.id == c.id) return 0;
-		else return -1;
 	}
 	
 	public boolean inCircle(int x, int y){

@@ -1,8 +1,6 @@
 package main.java;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import processing.core.PApplet;
 
 /**
@@ -40,13 +38,13 @@ public class Network {
 	}
 
 	public void addMember(Character c) {
-		if (!this.members.contains(c)) {
+		if (!c.inCircle()) {
 			this.members.add(c);
-			Collections.sort(this.members);
-			float angle = 360 / this.members.size();
+			c.setIncircle(true);
+			float angle = PApplet.TWO_PI / this.members.size();
 			float i = 0;
 			for (Character ch : this.members) {
-				ch.setPosition(this.x + this.r * PApplet.cos(angle * i), this.y + this.r * PApplet.sin(angle * i));
+				ch.setCirclePosition(this.x + this.r * PApplet.cos(angle*i), this.y + this.r * PApplet.sin(angle*i));
 				i++;
 			}
 		}
@@ -56,18 +54,19 @@ public class Network {
 		return this.members;
 	}
 
+	public void setBold(boolean b) {
+		this.bold = b;
+	}
+	
 	public boolean inCircle(int x, int y) {
 		if (PApplet.dist(this.x, this.y, x, y)<=this.r) return true;
 		else return false;
 	}
 
-	public void setBold(boolean b) {
-		this.bold = b;
-	}
-
 	public void clean() {
 		for (Character ch : this.members) {
 			ch.reset();
+			ch.setIncircle(false);
 		}
 		this.members.clear();
 	}

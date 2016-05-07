@@ -94,11 +94,11 @@ public class MainApplet extends PApplet{
 	public void mouseReleased(){
 		if(clean.inBtn(mouseX, mouseY)) clean.setClick(false);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(false);
-		if(circle.inCircle(mouseX, mouseY)) circle.addMember(characters.get(0));
 		circle.setBold(false);
 		if(dragging!=null&&dragging.isDrag()){
-			if(circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
-			else dragging.reset();
+			if(!dragging.inCircle()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
+			else if(dragging.inCircle()&&!circle.inCircle(mouseX, mouseY)) dragging.reset();
+			else dragging.returnToSite();
 			dragging.setDrag(false);
 		}
 	}
