@@ -15,7 +15,7 @@ public class Network {
 
 	private PApplet parent;
 	private ArrayList<Character> members;
-	private int x, y, r;
+	private float x, y, r;
 	private boolean bold;
 
 	public Network(PApplet parent) {
@@ -29,10 +29,8 @@ public class Network {
 
 	public void display() {
 		this.parent.noFill();
-		if (this.bold)
-			this.parent.strokeWeight(5);
-		else
-			this.parent.strokeWeight(3);
+		if (this.bold) this.parent.strokeWeight(5);
+		else this.parent.strokeWeight(3);
 		this.parent.stroke(145, 200, 65, 200);
 		this.parent.arc(this.x, this.y, this.r * 2, this.r * 2, 0, PApplet.TWO_PI);
 		
@@ -59,12 +57,8 @@ public class Network {
 	}
 
 	public boolean inCircle(int x, int y) {
-		float disX = this.x - x;
-		float disY = this.y - y;
-		if (PApplet.sqrt(PApplet.sq(disX) + PApplet.sq(disY)) <= this.r)
-			return true;
-		else
-			return false;
+		if (PApplet.dist(this.x, this.y, x, y)<=this.r) return true;
+		else return false;
 	}
 
 	public void setBold(boolean b) {
@@ -72,9 +66,8 @@ public class Network {
 	}
 
 	public void clean() {
-
 		for (Character ch : this.members) {
-			ch.setPosition(50+(ch.id/10)*60, 50+(ch.id%10)*60);
+			ch.reset();
 		}
 		this.members.clear();
 	}
