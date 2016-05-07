@@ -97,7 +97,6 @@ public class Character{
 
 	public void addTarget(Character Target,int Value) {
 		this.targets.add(Target);
-		System.out.println(Value);
 		this.value.add(Value);
 	}
 	/*
