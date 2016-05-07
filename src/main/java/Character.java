@@ -15,20 +15,19 @@ public class Character{
 	private String name, colour;
 	private MainApplet parent;
 	public ArrayList<Character> targets;
-	private boolean isdrag, inCircle;
+	private boolean isdrag, inNet, over;
 
 	public Character(MainApplet parent, String name, String colour, int id) {
 		this.parent = parent;
 		this.name = name;
 		this.colour = colour;
 		this.id = id;
-		this.r = 25;
 		this.x = 50 + (id / 10) * 60;
 		this.y = 50 + (id % 10) * 60;
 		this.nx = 50 + (id / 10) * 60;
 		this.ny = 50 + (id % 10) * 60;
 		this.isdrag = false;
-		this.inCircle = false;
+		this.inNet = false;
 		this.targets = new ArrayList<Character>();
 	}
 	
@@ -36,31 +35,23 @@ public class Character{
 
 		int hi = PApplet.unhex(this.colour.substring(1, 9));
 		this.parent.fill(hi, 200);
+		if(this.over) this.r = 25;
+		else this.r = 20;
 		this.parent.ellipse(this.nx, this.ny, this.r*2, this.r*2);
-		/*
-		this.parent.fill(153, 153, 255);
-		this.parent.rect(x + 10, y - 25, name.length() * 10, 25, 12, 12, 12, 12);
-
-		this.parent.fill(173, 254, 220);
-		this.parent.textSize(12);
-		this.parent.text(name, x + 18, y - 8);
 		
-		for (Character character : targets) {
-			this.parent.line(this.x, this.y, character.x, character.y);
-			this.parent.strokeWeight(this.value);
-		}*/
+		if(this.over) this.showName();
 	}
 	
 	public void setLinkWeight(int value) {
 		this.value = value;
 	}
 	
-	public void setIncircle(boolean b){
-		this.inCircle = b;
+	public void setInNet(boolean b){
+		this.inNet = b;
 	}
 	
-	public boolean inCircle(){
-		return this.inCircle;
+	public boolean inNet(){
+		return this.inNet;
 	}
 	
 	public void setDrag(boolean b){
@@ -69,6 +60,10 @@ public class Character{
 	
 	public boolean isDrag(){
 		return this.isdrag;
+	}
+	
+	public void setOver(boolean b){
+		this.over = b;
 	}
 	
 	public void setPosition(float x, float y) {
@@ -109,7 +104,7 @@ public class Character{
 		return this.targets;
 	}
 	
-	public boolean inCircle(int x, int y){
+	public boolean inBtn(int x, int y){
 		if (PApplet.dist(this.x, this.y, x, y)<=this.r) return true;
 		else return false;
 	}
@@ -121,7 +116,16 @@ public class Character{
 			float x1 = 600 + (midx-x)*3;
 			float y1 = 370 + (midy-y)*3;
 			
-			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
 			this.parent.strokeWeight(this.value);
+			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
+	}
+	
+	public void showName(){
+		this.parent.fill(153, 153, 255);
+		this.parent.rect(this.nx+10, this.ny-25, this.name.length()*10, 25, 12, 12, 12, 12);
+
+		this.parent.fill(173, 254, 220);
+		this.parent.textSize(12);
+		this.parent.text(this.name, this.nx+18, this.ny-8);
 	}
 }

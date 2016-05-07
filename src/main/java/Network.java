@@ -9,6 +9,7 @@ import processing.core.PApplet;
  * your own. I used the class to draw the circle and re-arrange nodes and links.
  * You will need to declare other variables.
  */
+
 public class Network {
 
 	private PApplet parent;
@@ -34,7 +35,7 @@ public class Network {
 		
 		for (Character ch : this.members) {
 			for (Character c : ch.getTargets()) {
-				if(c.inCircle()) ch.showLink(c, this.x, this.y);
+				if(c.inNet()) ch.showLink(c, this.x, this.y);
 			}
 		}
 	}
@@ -44,15 +45,15 @@ public class Network {
 	}
 	
 	public void addMember(Character c) {
-		if (!c.inCircle()) {
+		if (!c.inNet()) {
 			this.members.add(c);
-			c.setIncircle(true);
+			c.setInNet(true);
 			this.rearrange();
 		}
 	}
 	
 	public void removeMember(Character c){
-		c.setIncircle(false);
+		c.setInNet(false);
 		c.reset();
 		this.members.remove(this.members.indexOf(c));
 		this.rearrange();
@@ -65,8 +66,8 @@ public class Network {
 
 	public void clean() {
 		for (Character ch : this.members) {
+			ch.setInNet(false);
 			ch.reset();
-			ch.setIncircle(false);
 		}
 		this.members.clear();
 	}

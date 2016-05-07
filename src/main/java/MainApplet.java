@@ -83,7 +83,7 @@ public class MainApplet extends PApplet{
 		if(clean.inBtn(mouseX, mouseY)) clean.setClick(true);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(true);
 		for(Character ch : characters){
-			if(ch.inCircle(mouseX, mouseY)){
+			if(ch.inBtn(mouseX, mouseY)){
 				ch.setDrag(true);
 				dragging = ch;
 				break;
@@ -96,10 +96,11 @@ public class MainApplet extends PApplet{
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(false);
 		circle.setBold(false);
 		if(dragging!=null&&dragging.isDrag()){
-			if(!dragging.inCircle()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
-			else if(dragging.inCircle()&&!circle.inCircle(mouseX, mouseY)) circle.removeMember(dragging);
+			if(!dragging.inNet()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
+			else if(dragging.inNet()&&!circle.inCircle(mouseX, mouseY)) circle.removeMember(dragging);
 			else dragging.returnToSite();
 			dragging.setDrag(false);
+			dragging.setOver(false);
 		}
 	}
 	
@@ -108,6 +109,10 @@ public class MainApplet extends PApplet{
 		else clean.setOver(false);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setOver(true);
 		else addAll.setOver(false);
+		for(Character ch : characters){
+			if(ch.inBtn(mouseX, mouseY)) ch.setOver(true);
+			else ch.setOver(false);
+		}
 	}
 	
 	public void mouseDragged(){
