@@ -141,8 +141,8 @@ public class MainApplet extends PApplet{
 			JSONObject l = links.getJSONObject(i);
 			int source = l.getInt("source");
 			int target = l.getInt("target");
-			characters.get(source).addTarget(characters.get(target));
-			characters.get(source).setLinkWeight(l.getInt("value"));
+			int value = l.getInt("value");
+			characters.get(source).addTarget(characters.get(target),value);
 		}
 	}
 

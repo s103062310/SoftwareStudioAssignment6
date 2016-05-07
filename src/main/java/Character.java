@@ -11,12 +11,14 @@ import processing.core.PApplet;
 public class Character{
 
 	private float x, y, r, nx, ny;
-	private int value, id;
+	private int id;
 	private String name, colour;
 	private MainApplet parent;
 	public ArrayList<Character> targets;
+	public ArrayList<Integer> value;
 	private boolean isdrag, inNet, over;
 
+	
 	public Character(MainApplet parent, String name, String colour, int id) {
 		this.parent = parent;
 		this.name = name;
@@ -29,6 +31,7 @@ public class Character{
 		this.isdrag = false;
 		this.inNet = false;
 		this.targets = new ArrayList<Character>();
+		this.value = new ArrayList<Integer>();
 	}
 	
 	public void display() {
@@ -38,11 +41,6 @@ public class Character{
 		else this.r = 20;
 		this.parent.ellipse(this.nx, this.ny, this.r*2, this.r*2);
 	}
-	
-	public void setLinkWeight(int value) {
-		this.value = value;
-	}
-	
 	public void setInNet(boolean b){
 		this.inNet = b;
 	}
@@ -97,27 +95,31 @@ public class Character{
 		this.setPosition(this.x, this.y);
 	}
 
-	public void addTarget(Character target) {
-		this.targets.add(target);
+	public void addTarget(Character Target,int Value) {
+		this.targets.add(Target);
+		System.out.println(Value);
+		this.value.add(Value);
 	}
-
+	/*
 	public ArrayList<Character> getTargets() {
 		return this.targets;
 	}
-	
+	public ArrayList<Integer> getValues() {
+		return this.value;
+	}*/
 	public boolean inBtn(int x, int y){
 		if (PApplet.dist(this.x, this.y, x, y)<=this.r) return true;
 		else return false;
 	}
 	
-	public void showLink(Character character, float x, float y){			
+	public void showLink(Character character, float x, float y,int val){			
 			float midx = (character.x+this.x) / 2;
 			float midy = (character.y+this.y) / 2;
 			
 			float x1 = 600 + (midx-x)*3;
 			float y1 = 370 + (midy-y)*3;
 			
-			this.parent.strokeWeight(this.value);
+			this.parent.strokeWeight(val);
 			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
 	}
 	

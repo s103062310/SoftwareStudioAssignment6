@@ -34,9 +34,15 @@ public class Network {
 		this.parent.arc(this.x, this.y, this.r * 2, this.r * 2, 0, PApplet.TWO_PI);
 		
 		for (Character ch : this.members) {
+			for (int i=0;i<ch.targets.size();i++){
+				Character c = ch.targets.get(i);
+				if(c.inNet()) ch.showLink(c, this.x, this.y,ch.value.get(i));
+				
+			}
+			/*
 			for (Character c : ch.getTargets()) {
 				if(c.inNet()) ch.showLink(c, this.x, this.y);
-			}
+			}*/
 		}
 	}
 
