@@ -82,6 +82,14 @@ public class Character{
 		this.setPosition(this.x, this.y);
 	}
 	
+	public float getX(){
+		return this.nx;
+	}
+	
+	public float getY(){
+		return this.ny;
+	}
+	
 	public void returnToSite(){
 		this.nx = this.x;
 		this.ny = this.y;
@@ -106,18 +114,14 @@ public class Character{
 		else return false;
 	}
 	
-	public void showAllLink(){
-		for (Character character : targets) {
+	public void showLink(Character character, float x, float y){			
+			float midx = (character.x+this.x) / 2;
+			float midy = (character.y+this.y) / 2;
 			
-			float midx=(character.x+this.x)/2;
-			float midy=(character.y+this.y)/2;
+			float x1 = 600 + (midx-x)*3;
+			float y1 = 370 + (midy-y)*3;
 			
-			float x1=600+(midx-600)*3;
-			float y1=370+(midy-370)*3;
-			
-			this.parent.curve(x1,y1,this.x, this.y, character.x, character.y,x1,y1);
+			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
 			this.parent.strokeWeight(this.value);
-			
-		}
 	}
 }

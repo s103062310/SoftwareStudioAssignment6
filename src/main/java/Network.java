@@ -27,35 +27,35 @@ public class Network {
 
 	public void display() {
 		this.parent.noFill();
-		if (this.bold) this.parent.strokeWeight(5);
+		if(this.bold) this.parent.strokeWeight(5);
 		else this.parent.strokeWeight(3);
 		this.parent.stroke(145, 200, 65, 200);
 		this.parent.arc(this.x, this.y, this.r * 2, this.r * 2, 0, PApplet.TWO_PI);
 		
 		for (Character ch : this.members) {
-			ch.showAllLink();
-		}
-	}
-
-	public void addMember(Character c) {
-		if (!c.inCircle()) {
-			this.members.add(c);
-			c.setIncircle(true);
-			float angle = PApplet.TWO_PI / this.members.size();
-			float i = 0;
-			for (Character ch : this.members) {
-				ch.setCirclePosition(this.x + this.r * PApplet.cos(angle*i), this.y + this.r * PApplet.sin(angle*i));
-				i++;
+			for (Character c : ch.getTargets()) {
+				if(c.inCircle()) ch.showLink(c, this.x, this.y);
 			}
 		}
 	}
 
-	public ArrayList<Character> getMembers() {
-		return this.members;
-	}
-
 	public void setBold(boolean b) {
 		this.bold = b;
+	}
+	
+	public void addMember(Character c) {
+		if (!c.inCircle()) {
+			this.members.add(c);
+			c.setIncircle(true);
+			this.rearrange();
+		}
+	}
+	
+	public void removeMember(Character c){
+		c.setIncircle(false);
+		c.reset();
+		this.members.remove(this.members.indexOf(c));
+		this.rearrange();
 	}
 	
 	public boolean inCircle(int x, int y) {
@@ -78,4 +78,13 @@ public class Network {
 		}
 	}
 
+	private void rearrange(){
+		float angle = PApplet.TWO_PI / this.members.size();
+		float i = 0;
+		for (Character ch : this.members) {
+			ch.setCirclePosition(this.x + this.r * PApplet.cos(angle*i), this.y + this.r * PApplet.sin(angle*i));
+			i++;
+		}
+	}
+	
 }

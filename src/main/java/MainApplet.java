@@ -97,7 +97,7 @@ public class MainApplet extends PApplet{
 		circle.setBold(false);
 		if(dragging!=null&&dragging.isDrag()){
 			if(!dragging.inCircle()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
-			else if(dragging.inCircle()&&!circle.inCircle(mouseX, mouseY)) dragging.reset();
+			else if(dragging.inCircle()&&!circle.inCircle(mouseX, mouseY)) circle.removeMember(dragging);
 			else dragging.returnToSite();
 			dragging.setDrag(false);
 		}
