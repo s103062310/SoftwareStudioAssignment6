@@ -12,12 +12,12 @@ import processing.core.PApplet;
 
 public class Network {
 
-	private PApplet parent;
+	private MainApplet parent;
 	private ArrayList<Character> members;
 	private float x, y, r;
 	private boolean bold;
 
-	public Network(PApplet parent) {
+	public Network(MainApplet parent) {
 		this.parent = parent;
 		this.members = new ArrayList<Character>();
 		this.x = 600;
@@ -34,15 +34,9 @@ public class Network {
 		this.parent.arc(this.x, this.y, this.r * 2, this.r * 2, 0, PApplet.TWO_PI);
 		
 		for (Character ch : this.members) {
-			for (int i=0;i<ch.targets.size();i++){
-				Character c = ch.targets.get(i);
-				if(c.inNet()) ch.showLink(c, this.x, this.y,ch.value.get(i));
-				
+			for (Link l : ch.getTargets()){
+				l.showLink(this.parent, ch);
 			}
-			/*
-			for (Character c : ch.getTargets()) {
-				if(c.inNet()) ch.showLink(c, this.x, this.y);
-			}*/
 		}
 	}
 

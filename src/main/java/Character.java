@@ -1,6 +1,8 @@
 package main.java;
 
 import java.util.ArrayList;
+
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -10,12 +12,11 @@ import processing.core.PApplet;
 
 public class Character{
 
-	private float x, y, r, nx, ny;
+	public float x, y, r, nx, ny;
 	private int id;
 	private String name, colour;
 	private MainApplet parent;
-	public ArrayList<Character> targets;
-	public ArrayList<Integer> value;
+	private ArrayList<Link> targets;
 	private boolean isdrag, inNet, over;
 
 	
@@ -30,8 +31,8 @@ public class Character{
 		this.ny = 50 + (id % 10) * 60;
 		this.isdrag = false;
 		this.inNet = false;
-		this.targets = new ArrayList<Character>();
-		this.value = new ArrayList<Integer>();
+		this.targets = new ArrayList<Link>();
+		//Ani.init(this.parent);
 	}
 	
 	public void display() {
@@ -41,6 +42,7 @@ public class Character{
 		else this.r = 20;
 		this.parent.ellipse(this.nx, this.ny, this.r*2, this.r*2);
 	}
+	
 	public void setInNet(boolean b){
 		this.inNet = b;
 	}
@@ -85,42 +87,27 @@ public class Character{
 	}
 	
 	public void returnToSite(){
-		this.nx = this.x;
-		this.ny = this.y;
+		this.setPosition(this.x, this.y);
 	}
 	
 	public void reset(){
 		this.x = 50 + (this.id / 10) * 60;
 		this.y = 50 + (this.id % 10) * 60;
-		this.setPosition(this.x, this.y);
+		Ani.to(this, 1, "nx", this.x);
+		Ani.to(this, 1, "ny", this.y);
 	}
 
-	public void addTarget(Character Target,int Value) {
-		this.targets.add(Target);
-		this.value.add(Value);
+	public void addTarget(Link l) {
+		this.targets.add(l);
 	}
-	/*
-	public ArrayList<Character> getTargets() {
+	
+	public ArrayList<Link> getTargets() {
 		return this.targets;
 	}
-	public ArrayList<Integer> getValues() {
-		return this.value;
-	}*/
+	
 	public boolean inBtn(int x, int y){
 		if (PApplet.dist(this.x, this.y, x, y)<=this.r) return true;
 		else return false;
-	}
-	
-	public void showLink(Character character, float x, float y,int val){			
-		
-			float midx = (character.getX()+this.nx) / 2;
-			float midy = (character.getY()+this.ny) / 2;
-			
-			float x1 = 600 + (midx-600)*3;
-			float y1 = 370 + (midy-370)*3;
-			
-			this.parent.strokeWeight(val);
-			this.parent.curve(x1, y1, this.nx, this.ny, character.getX(), character.getY(), x1, y1);
 	}
 	
 	public void showName(){

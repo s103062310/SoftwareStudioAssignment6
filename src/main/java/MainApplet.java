@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -35,6 +36,7 @@ public class MainApplet extends PApplet{
 		dragging = null;
 		loadData();
 		smooth();
+		Ani.init(this);
 	}
 	
 	public void draw() {
@@ -103,10 +105,11 @@ public class MainApplet extends PApplet{
 		if(dragging!=null&&dragging.isDrag()){
 			if(!dragging.inNet()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
 			else if(dragging.inNet()&&!circle.inCircle(mouseX, mouseY)) circle.removeMember(dragging);
-			else dragging.returnToSite();
+			else if(dragging.inNet()) dragging.returnToSite();
+			else dragging.reset();
 			dragging.setDrag(false);
 			dragging.setOver(false);
-		}
+		}		
 	}
 	
 	public void mouseMoved(){
@@ -142,7 +145,7 @@ public class MainApplet extends PApplet{
 			int source = l.getInt("source");
 			int target = l.getInt("target");
 			int value = l.getInt("value");
-			characters.get(source).addTarget(characters.get(target),value);
+			characters.get(source).addTarget(new Link(characters.get(target), value));
 		}
 	}
 
