@@ -122,7 +122,7 @@ public class MainApplet extends PApplet{
 		// 鬆開滑鼠一定不會使圓圈線變粗(沒有準備要將角色加入關係圓)
 		circle.setBold(false);
 		
-		// 若有角色正被拖曳: 加入關係圓、退出關係圓、回到原本位置，並回覆被拖曳者狀態
+		// 若有角色正被拖曳: 加入關係圓、退出關係圓、回到原本位置，並回復被拖曳者狀態
 		if(dragging!=null&&dragging.isDrag()){
 			if(!dragging.inNet()&&circle.inCircle(mouseX, mouseY)) circle.addMember(dragging);
 			else if(dragging.inNet()&&!circle.inCircle(mouseX, mouseY)) circle.removeMember(dragging);

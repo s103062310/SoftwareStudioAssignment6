@@ -28,8 +28,16 @@ Explain your design in this section.
 + 使用 mouseClicked()、mousePressed()、mouseReleased()、mouseMoved()、mouseDragged() 控制滑鼠操作
 
 #### Character.java
++ 定義角色圓的外觀、位置、狀態
++ 顯示角色圓名字的文字區塊
++ 判斷游標是否位於角色圓的點擊範圍內
++ 使用 ArrayList targets 儲存所有與該角色相連的角色
++ 實作"設置/取得角色圓的位置/狀態"的方法
 
 #### Link.java
++ 定義角色的連接(單向)
++ 設置連線的粗細，並線性調適之
++ 計算連線的凹向，繪出連線
 
 #### Network.java
 + 定義關係圓外觀與狀態(bold) => 透過 inBtn(...)
