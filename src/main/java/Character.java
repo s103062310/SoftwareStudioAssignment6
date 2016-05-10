@@ -12,7 +12,7 @@ import processing.core.PApplet;
 
 public class Character{
 
-	private float x, y, r, nx, ny;			// ，，半徑，角色當前的 x 座標，角色當前的 y 座標。
+	private float x, y, r, nx, ny;			// 保存角色位置改變前的 x 座標，改變前的 y 座標，半徑，角色當前的 x 座標，角色當前的 y 座標。
 	private int id;							// 該角色的編號。
 	private String name, colour;			// 該角色的名字，顏色。
 	private MainApplet parent;
