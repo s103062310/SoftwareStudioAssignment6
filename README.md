@@ -14,6 +14,7 @@ Explain your design in this section.
 + 關係圓內每次加入新角色都會重新排列一次
 + Add All 按鈕: 將剩餘角色全部加入分析
 + Clear 按鈕: 將關係圓清空
++ Sound 按鈕: 將音樂開啟/關閉
 + 按鈕滑入與按下會有顏色改變，使使用者更清楚目前狀態
 
 ### Visualization
