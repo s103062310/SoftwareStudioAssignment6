@@ -16,6 +16,7 @@ Explain your design in this section.
 + Clear 按鈕: 將關係圓清空
 + Sound 按鈕: 將音樂開啟/關閉
 + 按鈕滑入與按下會有顏色改變，使使用者更清楚目前狀態
++ 有背景音樂與靜音/播放鍵
 
 ### Visualization
 + 每條關係根據資料程度有不同粗細
