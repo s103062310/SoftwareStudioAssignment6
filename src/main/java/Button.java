@@ -21,7 +21,10 @@ public class Button {
 		this.width = 200;
 		this.height = 50;
 	}
-	
+	// 改變按鈕上字的內容
+	public void setText(String txt){
+		this.text=txt;
+	}
 	// 畫出畫面
 	public void display(){
 		// 按鈕主體
@@ -53,5 +56,4 @@ public class Button {
 			return true;
 		else return false;
 	}
-	
 }

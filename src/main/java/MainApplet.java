@@ -23,11 +23,12 @@ public class MainApplet extends PApplet{
 	private ArrayList<Character> characters;						// 所有角色陣列
 	private Character dragging;										// 正被拖曳的腳色物件
 	private Network circle;											// 關係圓
-	private Button clean, addAll;									// 按鈕
+	private Button clean, addAll,sound;								// 按鈕
 	private int keycode=1;											// 集數
 	private final static int width = 1200, height = 650;			// 視窗大小
 	private Minim minim;
 	private AudioPlayer song;
+	private boolean on = true, firstPlay = true;					// 音樂開啟，第一次播放
 	
 	// 初始化
 	public void setup() {
@@ -35,14 +36,21 @@ public class MainApplet extends PApplet{
 		circle = new Network(this);
 		addAll = new Button(this, 950, 70, 50, "ADD ALL");
 		clean = new Button(this, 950, 170, 60, "CLEAN");
+		sound = new Button(this, 950, 500, 50, "MUSIC OFF");
+		
 		characters = new ArrayList<Character>();
 		dragging = null;
 		minim = new Minim(this);
-		song = minim.loadFile(this.getClass().getResource("../resources/theme.mp3").getPath());
+		// 避免重複播放
+		if(firstPlay){
+			song = minim.loadFile(this.getClass().getResource("../resources/theme.mp3").getPath());
+			song.play();
+			firstPlay=false;
+		}
 		loadData();
 		smooth();
 		Ani.init(this);
-		song.play();
+		
 	}
 	
 	// 畫出畫面
@@ -59,6 +67,7 @@ public class MainApplet extends PApplet{
 		circle.display();
 		clean.display();
 		addAll.display();
+		sound.display();
 		
 		// 所有角色物件
 		for (Character character : characters){
@@ -101,6 +110,18 @@ public class MainApplet extends PApplet{
 	public void mouseClicked(){
 		if(clean.inBtn(mouseX, mouseY)) circle.clean();
 		if(addAll.inBtn(mouseX, mouseY)) circle.addAll(characters);
+		if(sound.inBtn(mouseX, mouseY)){
+			if(on){
+				song.pause();
+				on=false;
+				sound.setText("MUSIC ON");
+			}
+			else{
+				song.play();
+				on=true;
+				sound.setText("MUSIC OFF");
+			}
+		}
 	}
 	
 	// 滑鼠按下: 按鈕按下判定 + 角色拖曳判定 (以滑鼠位置是否在有效區域內判斷(inBtn))
@@ -108,6 +129,7 @@ public class MainApplet extends PApplet{
 		// 顏色變藍以標示開始按鈕功能
 		if(clean.inBtn(mouseX, mouseY)) clean.setClick(true);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(true);
+		if(sound.inBtn(mouseX, mouseY)) sound.setClick(true);
 		
 		// 辨別正在拖曳的是誰
 		for(Character ch : characters){
@@ -124,6 +146,7 @@ public class MainApplet extends PApplet{
 		// 顏色回復以標示結束按鈕功能
 		if(clean.inBtn(mouseX, mouseY)) clean.setClick(false);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setClick(false);
+		if(sound.inBtn(mouseX, mouseY)) sound.setClick(false);
 		
 		// 鬆開滑鼠一定不會使圓圈線變粗(沒有準備要將角色加入關係圓)
 		circle.setBold(false);
@@ -146,6 +169,8 @@ public class MainApplet extends PApplet{
 		else clean.setOver(false);
 		if(addAll.inBtn(mouseX, mouseY)) addAll.setOver(true);
 		else addAll.setOver(false);
+		if(sound.inBtn(mouseX, mouseY)) sound.setOver(true);
+		else sound.setOver(false);
 		
 		// 圖形變大以標示滑鼠位於角色有效區內(可點選)
 		for(Character ch : characters){
