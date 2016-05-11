@@ -3,6 +3,7 @@ package main.java;
 import java.util.ArrayList;
 
 import de.looksgood.ani.Ani;
+import ddf.minim.*;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -25,6 +26,8 @@ public class MainApplet extends PApplet{
 	private Button clean, addAll;									// 按鈕
 	private int keycode=1;											// 集數
 	private final static int width = 1200, height = 650;			// 視窗大小
+	private Minim minim;
+	private AudioPlayer song;
 	
 	// 初始化
 	public void setup() {
@@ -34,9 +37,12 @@ public class MainApplet extends PApplet{
 		clean = new Button(this, 950, 170, 60, "CLEAN");
 		characters = new ArrayList<Character>();
 		dragging = null;
+		minim = new Minim(this);
+		song = minim.loadFile(this.getClass().getResource("../resources/theme.mp3").getPath());
 		loadData();
 		smooth();
 		Ani.init(this);
+		song.play();
 	}
 	
 	// 畫出畫面
